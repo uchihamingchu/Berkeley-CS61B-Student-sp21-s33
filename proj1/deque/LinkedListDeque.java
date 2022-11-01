@@ -193,7 +193,7 @@ class Main {
         System.out.println ("List is Empty? " + list.isEmpty());
         System.out.println ("List Size is:" + list.size());
         System.out.println ("get " + list.get(2));
-        System.out.println("Get Recursive is: " + list.getRecursive(2));
+        //System.out.println("Get Recursive is: " + list.getRecursive(2));
         //System.out.println();
 //        int i = list.removeFirst();
 //        System.out.println("item " + i + " removed at First Position");
