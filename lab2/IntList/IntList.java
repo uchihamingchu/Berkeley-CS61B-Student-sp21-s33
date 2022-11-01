@@ -65,3 +65,108 @@ public class IntList {
         return new IntList(argList[0], IntList.of(restList));
     }
 }
+
+    //my contribution//
+    //Modify the Intlist class so that every time you add a value you “square” the IntList. //
+    public IntList squareList (IntList l, int i){
+        if (l == null){
+            IntList head = new IntList(i, null);
+            return head;
+        }
+
+        int size = l.size();
+        IntList head = l;
+        IntList tempNode = head.rest;
+        IntList prevNode = head;
+        while (tempNode != null) {
+            IntList newNode = new IntList(null, null);
+            newNode.rest = tempNode;
+            prevNode.rest = newNode;
+            newNode.first = prevNode.first* prevNode.first;
+            prevNode = tempNode;
+            tempNode = tempNode.next;
+        }
+        prevNode.next = new IntList(i, null);
+        return l;
+        }
+
+    }
+
+/**
+ * Returns a list equal to L with all elements squared. Destructive.
+ */
+public static void dSquareList(IntList L) {
+
+        while (L != null) {
+        L.first = L.first * L.first;
+        L = L.rest;
+        }
+}
+
+/**
+ * Returns a list equal to L with all elements squared. Non-destructive.
+ */
+public static IntList squareListIterative(IntList L){
+        if(L==null){
+        return null;
+        }
+        IntList res=new IntList(L.first*L.first,null);
+        IntList ptr=res;
+        L=L.rest;
+        while(L!=null){
+        ptr.rest=new IntList(L.first*L.first,null);
+        L=L.rest;
+        ptr=ptr.rest;
+        }
+        return res;
+        }
+
+/**
+ * Returns a list equal to L with all elements squared. Non-destructive.
+ */
+public static IntList squareListRecursive(IntList L) {
+        if (L == null) {
+        return null;
+        }
+        return new IntList(L.first * L.first, squareListRecursive(L.rest));
+        }
+
+/** DO NOT MODIFY ANYTHING ABOVE THIS LINE! */
+
+/**
+ * Returns a list consisting of the elements of A followed by the
+ * *  elements of B.  May modify items of A. Don't use 'new'.
+ */
+
+public static IntList dcatenate(IntList A, IntList B) {
+        if (A == null) {
+            return B;
+        }
+        IntList p = A;
+        while (p.rest != null){
+            p = p.rest;
+        }
+        p.rest = B;
+        return A;
+    }
+
+/**
+ * Returns a list consisting of the elements of A followed by the
+ * * elements of B.  May NOT modify items of A.  Use 'new'.
+ */
+public static IntList catenate(IntList A, IntList B) {
+        if (A == null) {
+            return B;
+        }
+        IntList res = new IntList(A.first, null);
+        IntList p = res;
+        A = A.rest;
+        while (A != null) {
+            IntList node = new IntList(A.first, null);
+            p.rest = node;
+            p = p.rest;
+            A = A.rest;
+        }
+        p.rest = B;
+        return res;
+        }

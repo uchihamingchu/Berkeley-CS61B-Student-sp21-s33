@@ -29,6 +29,18 @@ public class SLList<Item> {
 		size = 1;
 	}
 
+	// my contribution:  implement a second constructor
+	// that takes in an array of integers, and creates an SLList with those integers.//
+	public SLList (int[] ints) {
+		sentinel = new IntNode(null, null);
+		IntNode p = sentinel;
+		for (i=0; i < ints.length; i++){
+			p.next = new IntNode(ints[i], null);
+			p = p.next;
+			size ++;
+		}
+	}
+
 	/** Adds x to the front of the list. */
 	public void addFirst(Item x) {
 		sentinel.next = new IntNode(x, sentinel.next);
@@ -79,3 +91,41 @@ public class SLList<Item> {
 		System.out.println(L.size());
 	}
 }
+
+	// my contribution//
+	public void deleteFirst (){
+		sentinel.next = sentinel.next.next;
+		size= size -1;
+	}
+
+
+	// my contribution: Implement SLList.insert which takes in an integer x and an integer position. It
+//inserts x at the given position. If position is after the end of the list, insert the
+//new node at the end.//
+	public void insert(int item, int position) {
+	if (position >= size-1) {
+		this = this.addLast(item);
+		size ++;
+	} else {
+		int index = 0;
+		IntNode p = sentinel;
+		while (p.next!= null && index != position){
+			p = p.next;
+			index ++;
+		}
+		p.next = new IntNode(item, p.next);
+		size ++;
+	}
+	}
+
+	//Add another method to the SLList class that reverses the elements. Do this using
+//the existing IntNode objects (you should not use new).
+	public void reverse() {
+		IntNode p = sentinel;
+		int times = 0;
+		while (times < size) {
+			p.next = this.getLast();
+			p = p.next;
+			times++;
+		}
+	}

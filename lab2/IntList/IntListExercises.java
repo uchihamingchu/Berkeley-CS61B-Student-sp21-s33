@@ -1,5 +1,7 @@
 package IntList;
 
+import org.graalvm.compiler.core.common.util.IntList;
+
 public class IntListExercises {
 
     /**
@@ -9,12 +11,32 @@ public class IntListExercises {
      * @param lst IntList from Lecture
      */
     public static void addConstant(IntList lst, int c) {
-        IntList head = lst;
-        while (head.rest != null) {
+        /*IntList head = lst;
+        while (head != null) {
             head.first += c;
             head = head.rest;
+        }*/
+
+        IntList head = lst;
+        if (head == null){return;}
+        Intlist result = new IntList();
+        result.first = head.first+c;
+        Intlist tail = result;
+        head = head.rest;
+
+        while (head != null) {
+            Intlist node = new IntList();
+            node.first= head.first + c;
+            tail.next = node;
+            tail = node;
+            head= head.rest;
         }
+
+        }
+
     }
+
+
 
     /**
      * Part B: Buggy method that sets node.first to zero if

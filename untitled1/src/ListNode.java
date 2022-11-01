@@ -15,8 +15,4 @@ public class ListNode{
         this.data = data;
         this.next = next;
     }
-
-    public void add (int value){
-        
-    }
 }
