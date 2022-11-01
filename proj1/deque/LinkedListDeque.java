@@ -60,6 +60,22 @@ public class LinkedListDeque<T> {
         header.setNext(trailer);
     }
 
+    // create a deep copy of other
+    public LinkedListDeque(LinkedListDeque other){
+        header = new TNode();
+        trailer = new TNode(null, header, null);
+        header.setNext(trailer);
+        if (!other.isEmpty()){
+            TNode p = (TNode) other.header;
+            while (p.getNext()!= trailer) {
+                T item = (T) p.getNext().getItem();
+                addLast(item);
+                p = p.next;
+            }
+        }
+        size = other.size();
+    }
+
     public void addFirst(T item) {
         addBetween(item, header, header.getNext());
     }
@@ -74,7 +90,7 @@ public class LinkedListDeque<T> {
         next.setPrev(node);
         size ++;
     }
-    public void addBetween(T item, T prev, T next) {
+    private void addBetween(T item, T prev, T next) {
         TNode prevNode = this.getTNode(prev);
         TNode nextNode = this.getTNode(next);
         if (prevNode == null || nextNode == null || prevNode.getNext() != nextNode){
@@ -87,7 +103,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public TNode getTNode (T item){
+    private TNode getTNode (T item){
         TNode p = header.getNext();
         while (p != trailer){
             if (p.getItem().equals(item)){
@@ -156,28 +172,37 @@ public class LinkedListDeque<T> {
         }
     }
 
+//    public T getRecursive(int index) {
+//        if (index == 0){
+//            return (T) header.getNext().getItem();
+//        }
+//        return header.getNext().getRecursive(index-1);
+//    }
+
 }
 
 class Main {
     public static void main (String[] args){
         LinkedListDeque<Integer> list = new LinkedListDeque<Integer>();
         list.addFirst(1);
-        list.addFirst(2);
+        list.addFirst(7);
         list.addLast(3);
         list.printDeque();
-        list.addBetween(5, 1, 3);
+        //list.addBetween(5, 1, 3);
         list.printDeque();
         System.out.println ("List is Empty? " + list.isEmpty());
         System.out.println ("List Size is:" + list.size());
+        System.out.println ("get " + list.get(2));
+        System.out.println("Get Recursive is: " + list.getRecursive(2));
         //System.out.println();
-        int i = list.removeFirst();
-        System.out.println("item " + i + " removed at First Position");
-        list.printDeque();
-        System.out.println ("List Size is:" + list.size());
-        int j = list.removeLast();
-        System.out.println("item " + j + " removed at Last Position");
-        list.printDeque();
-        System.out.println(list.get(0));
+//        int i = list.removeFirst();
+//        System.out.println("item " + i + " removed at First Position");
+//        list.printDeque();
+//        System.out.println ("List Size is:" + list.size());
+//        int j = list.removeLast();
+//        System.out.println("item " + j + " removed at Last Position");
+//        list.printDeque();
+//        System.out.println(list.get(0));
 
     }
 
