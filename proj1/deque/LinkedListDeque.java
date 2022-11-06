@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class LinkedListDeque<T> {
-    private static class TNode<T> {
+    private class TNode {
         private T item;
         private TNode prev;
         private TNode next;
@@ -47,6 +47,13 @@ public class LinkedListDeque<T> {
         public void setItem(T item) {
             this.item = item;
         }
+
+//        public T getRecursive(int index) {
+//            if (index == 0){
+//                return getItem();
+//            }
+//            return getNext().getRecursive(index-1);
+//        }
     }
 
     public TNode header;
@@ -90,7 +97,7 @@ public class LinkedListDeque<T> {
         next.setPrev(node);
         size ++;
     }
-    private void addBetween(T item, T prev, T next) {
+    public void addBetween(T item, T prev, T next) {
         TNode prevNode = this.getTNode(prev);
         TNode nextNode = this.getTNode(next);
         if (prevNode == null || nextNode == null || prevNode.getNext() != nextNode){
@@ -172,11 +179,23 @@ public class LinkedListDeque<T> {
         }
     }
 
+    public T getRecursiveHelper(TNode node, int index) {
+        if (index == 0){
+            return node.getItem();
+        }
+        return getRecursiveHelper(node.getNext(), index-1);
+    }
+
+    public T getRecursive(int index) {
+        return getRecursiveHelper(header.getNext(), index);
+    }
 //    public T getRecursive(int index) {
-//        if (index == 0){
-//            return (T) header.getNext().getItem();
+//        if (index == 0) {
+//            return header.getNext().getItem();
 //        }
-//        return header.getNext().getRecursive(index-1);
+//        LinkedListDeque<T> newD = new LinkedListDeque<T>();
+//        newD.header = header.getNext();
+//        return newD.getRecursive(index-1);
 //    }
 
 }
@@ -188,11 +207,11 @@ class Main {
         list.addFirst(7);
         list.addLast(3);
         list.printDeque();
-        //list.addBetween(5, 1, 3);
-        list.printDeque();
-        System.out.println ("List is Empty? " + list.isEmpty());
-        System.out.println ("List Size is:" + list.size());
-        System.out.println ("get " + list.get(2));
+//        //list.addBetween(5, 1, 3);
+//        list.printDeque();
+//        System.out.println ("List is Empty? " + list.isEmpty());
+//        System.out.println ("List Size is:" + list.size());
+//        System.out.println ("get " + list.get(2));
         //System.out.println("Get Recursive is: " + list.getRecursive(2));
         //System.out.println();
 //        int i = list.removeFirst();
@@ -204,6 +223,16 @@ class Main {
 //        list.printDeque();
 //        System.out.println(list.get(0));
 
+//        LinkedListDeque<String> s = new LinkedListDeque<>();
+//        s.addFirst("hello");
+//        s.addLast("world");
+//        s.addBetween("yes ", "hello", "world");
+//        s.printDeque();
+//        System.out.println("size is " + s.size());
+//        s.removeFirst();
+//        s.printDeque();
+        int i = list.getRecursive(0);
+        System.out.println(i);
     }
 
 
