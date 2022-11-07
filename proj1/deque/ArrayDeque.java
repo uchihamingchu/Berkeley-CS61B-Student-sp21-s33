@@ -14,7 +14,7 @@ public class ArrayDeque<T> {
         lastIndex = 1;
     }
 
-    public ArrayDeque(int firstIndex){
+    private ArrayDeque(int firstIndex){
         items = (T[]) new Object[START_SIZE];
         size = 0;
         this.firstIndex = firstIndex;
@@ -25,10 +25,10 @@ public class ArrayDeque<T> {
     public ArrayDeque(ArrayDeque other){
         items = (T[]) new Object[other.items.length];
         firstIndex = other.firstIndex;
-        lastIndex = other.lastIndex;
+        lastIndex = other.firstIndex + 1;
         size = 0;
         for (int i = 1; i < other.size + 1; i ++){
-            addLast((T) other.items[(firstIndex + i) % other.items.length]);
+            addLast((T) other.items[(other.firstIndex + i) % other.items.length]);
         }
     }
 
@@ -47,7 +47,7 @@ public class ArrayDeque<T> {
 //    }
     public void addFirst(T item){
         if (size == items.length) {
-            resize();
+            resizeUp();
         }
         items[firstIndex] = item;
         firstIndex = (firstIndex -1 + items.length) % items.length;
@@ -55,7 +55,7 @@ public class ArrayDeque<T> {
     }
     public void addLast(T item){
         if (size == items.length) {
-            resize();
+            resizeUp();
         }
         items[lastIndex] = item;
         lastIndex = (lastIndex +1) % items.length;
@@ -75,23 +75,33 @@ public class ArrayDeque<T> {
 //    }
 
     public void printDeque(){
-        String result = "[" + items[0];
+//        String result1 = "[0";
+        String result2 = "[" + items[0];
         for (int i = 1; i < items.length; i++){
-            result += " " + items[i];
+//            result1 += " " + i;
+            result2 += " " + items[i];
         }
-        result += "]";
-        System.out.println(result);
+ //       result1 += "]";
+        result2 += "]";
+ //       System.out.println(result1);
+        System.out.println(result2);
     }
     public T removeFirst(){
-        T item = items[firstIndex];
-        items[firstIndex] = null;
+//        if (size < items.length*0.25){
+//            resizeDown();
+//        }
+        T item = items[firstIndex + 1];
+        items[firstIndex + 1] = null;
         size--;
         firstIndex = (firstIndex + 1)% items.length;
         return item;
     }
     public T removeLast(){
-        T item = items[lastIndex];
-        items[lastIndex] = null;
+//        if (size < items.length*0.25){
+//            resizeDown();
+//        }
+        T item = items[lastIndex - 1];
+        items[lastIndex -1] = null;
         size --;
         lastIndex = (firstIndex - 1 + items.length) % items.length;
         return item;
@@ -100,7 +110,7 @@ public class ArrayDeque<T> {
         T item = items[index];
         return item;
     }
-    public void resize(){
+    public void resizeUp(){
         T[] newList = (T[]) new Object[items.length *2];
         System.arraycopy(items, 0, newList, items.length, firstIndex +1);
         System.arraycopy(items,(firstIndex+1)% items.length,newList, (firstIndex+1)%items.length, items.length-firstIndex-1);
@@ -108,32 +118,48 @@ public class ArrayDeque<T> {
         items = newList;
     }
 
+//    public void resizeDown(){
+//        T[] newList = (T[]) new Object[items.length/4];
+//        System.arraycopy(items, firstIndex+1, newList, 0, size);
+//
+//    }
+
     public static void main(String[] args){
         ArrayDeque<Integer> list1 = new ArrayDeque<>(3);
-        list1.addFirst(1);
-        list1.addLast(2);
-        list1.addLast(3);
-        list1.addLast(4);
-        list1.addLast(5);
-        list1.addLast(6);
-        list1.addLast(7);
-        list1.addLast(8);
-//        //list1.removeLast();
-        list1.addLast(9);
-        list1.addLast(10);
-        list1.addLast(11);
-        list1.addLast(12);
-        list1.addLast(13);
-        list1.addLast(14);
-        list1.addLast(15);
-        list1.addLast(16);
-        list1.addLast(17);
+        System.out.println("list size is " + list1.size);
+        for (int i = 0; i < 100; i++){
+            list1.addLast(i);
+        }
 //       list1.addLast("your");
 //        list1.addLast("name?");
         list1.printDeque();
         System.out.println("list size is " + list1.size);
-        System.out.println(list1.get(3));
+//        System.out.println(list1.get(3));
+        ArrayDeque newdeque = new ArrayDeque(list1);
+        newdeque.printDeque();
+//        System.out.println("After Removal:");
+//        System.out.println("First index is " + list1.firstIndex);
+//        System.out.println("Last index is " + list1.lastIndex);
+        list1.removeLast();
+        list1.removeFirst();
+        list1.printDeque();
+        newdeque.printDeque();
+
+
     }
 
+//    public void selectionSort(){
+//        for (int i = 0; i < size; i++){
+//            T smallestItem = items[i];
+//            for (int j = i; j < size; j++){
+//                if (smallestItem.compareTo(items[j]) < 0){
+//                    smallestItem = items[j];
+//                }
+//            }
+//            T temp = items[i];
+//            items[i] = smallestItem;
+//            smallestItem = temp;
+//        }
+//    }
 }
 
