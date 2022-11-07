@@ -90,8 +90,8 @@ public class ArrayDeque<T> {
 //        if (size < items.length*0.25){
 //            resizeDown();
 //        }
-        T item = items[firstIndex + 1];
-        items[firstIndex + 1] = null;
+        T item = items[(firstIndex + 1)% items.length];
+        items[(firstIndex + 1)% items.length] = null;
         size--;
         firstIndex = (firstIndex + 1)% items.length;
         return item;
@@ -100,8 +100,8 @@ public class ArrayDeque<T> {
 //        if (size < items.length*0.25){
 //            resizeDown();
 //        }
-        T item = items[lastIndex - 1];
-        items[lastIndex -1] = null;
+        T item = items[(lastIndex - 1 + items.length)% items.length];
+        items[(lastIndex - 1 + items.length)%% items.length] = null;
         size --;
         lastIndex = (firstIndex - 1 + items.length) % items.length;
         return item;
