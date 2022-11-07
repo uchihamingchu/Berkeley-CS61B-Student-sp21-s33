@@ -56,9 +56,9 @@ public class LinkedListDeque<T> {
 //        }
     }
 
-    public TNode header;
-    public TNode trailer;
-    public int size;
+    private TNode header;
+    private TNode trailer;
+    private int size;
 
 
     public LinkedListDeque() {

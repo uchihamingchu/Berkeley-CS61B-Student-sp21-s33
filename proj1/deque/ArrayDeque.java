@@ -110,7 +110,7 @@ public class ArrayDeque<T> {
         T item = items[index];
         return item;
     }
-    public void resizeUp(){
+    private void resizeUp(){
         T[] newList = (T[]) new Object[items.length *2];
         System.arraycopy(items, 0, newList, items.length, firstIndex +1);
         System.arraycopy(items,(firstIndex+1)% items.length,newList, (firstIndex+1)%items.length, items.length-firstIndex-1);
@@ -124,29 +124,29 @@ public class ArrayDeque<T> {
 //
 //    }
 
-    public static void main(String[] args){
-        ArrayDeque<Integer> list1 = new ArrayDeque<>(3);
-        System.out.println("list size is " + list1.size);
-        for (int i = 0; i < 100; i++){
-            list1.addLast(i);
-        }
-//       list1.addLast("your");
-//        list1.addLast("name?");
-        list1.printDeque();
-        System.out.println("list size is " + list1.size);
-//        System.out.println(list1.get(3));
-        ArrayDeque newdeque = new ArrayDeque(list1);
-        newdeque.printDeque();
-//        System.out.println("After Removal:");
-//        System.out.println("First index is " + list1.firstIndex);
-//        System.out.println("Last index is " + list1.lastIndex);
-        list1.removeLast();
-        list1.removeFirst();
-        list1.printDeque();
-        newdeque.printDeque();
-
-
-    }
+//    public static void main(String[] args){
+//        ArrayDeque<Integer> list1 = new ArrayDeque<>(3);
+//        System.out.println("list size is " + list1.size);
+//        for (int i = 0; i < 100; i++){
+//            list1.addLast(i);
+//        }
+////       list1.addLast("your");
+////        list1.addLast("name?");
+//        list1.printDeque();
+//        System.out.println("list size is " + list1.size);
+////        System.out.println(list1.get(3));
+//        ArrayDeque newdeque = new ArrayDeque(list1);
+//        newdeque.printDeque();
+////        System.out.println("After Removal:");
+////        System.out.println("First index is " + list1.firstIndex);
+////        System.out.println("Last index is " + list1.lastIndex);
+//        list1.removeLast();
+//        list1.removeFirst();
+//        list1.printDeque();
+//        newdeque.printDeque();
+//
+//
+//    }
 
 //    public void selectionSort(){
 //        for (int i = 0; i < size; i++){
