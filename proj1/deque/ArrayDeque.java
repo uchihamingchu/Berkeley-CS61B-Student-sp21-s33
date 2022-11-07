@@ -64,7 +64,7 @@ public class ArrayDeque<T> {
     public boolean isEmpty(){
         return size == 0;
     }
-    public int size(){ return size;}
+    public int size(){return size;}
 //    private void printDeque(){
 //        String result = "[" + items[(firstIndex+1) % items.length];
 //        for (int i = 2; i < size+1; i++){
@@ -90,23 +90,34 @@ public class ArrayDeque<T> {
 //        if (size < items.length*0.25){
 //            resizeDown();
 //        }
-        T item = items[(firstIndex + 1)% items.length];
-        items[(firstIndex + 1)% items.length] = null;
-        size--;
-        firstIndex = (firstIndex + 1)% items.length;
-        return item;
+        if (size == 0) {
+            return null;
+        } else {
+            T item = items[(firstIndex + 1) % items.length];
+            items[(firstIndex + 1) % items.length] = null;
+            size--;
+            firstIndex = (firstIndex + 1) % items.length;
+            return item;
+        }
     }
     public T removeLast(){
 //        if (size < items.length*0.25){
 //            resizeDown();
 //        }
-        T item = items[(lastIndex - 1 + items.length)% items.length];
-        items[(lastIndex - 1 + items.length)% items.length] = null;
-        size --;
-        lastIndex = (firstIndex - 1 + items.length) % items.length;
-        return item;
+        if (size == 0) {
+            return null;
+        } else {
+            T item = items[(lastIndex - 1 + items.length) % items.length];
+            items[(lastIndex - 1 + items.length) % items.length] = null;
+            size--;
+            lastIndex = (firstIndex - 1 + items.length) % items.length;
+            return item;
+        }
     }
     public T get(int index){
+        if (size == 0){
+            return null;
+        }
         T item = items[index];
         return item;
     }
