@@ -101,7 +101,7 @@ public class ArrayDeque<T> {
 //            resizeDown();
 //        }
         T item = items[(lastIndex - 1 + items.length)% items.length];
-        items[(lastIndex - 1 + items.length)%% items.length] = null;
+        items[(lastIndex - 1 + items.length)% items.length] = null;
         size --;
         lastIndex = (firstIndex - 1 + items.length) % items.length;
         return item;
@@ -124,7 +124,7 @@ public class ArrayDeque<T> {
 //
 //    }
 
-//    public static void main(String[] args){
+    public static void main(String[] args){
 //        ArrayDeque<Integer> list1 = new ArrayDeque<>(3);
 //        System.out.println("list size is " + list1.size);
 //        for (int i = 0; i < 100; i++){
@@ -146,7 +146,7 @@ public class ArrayDeque<T> {
 //        newdeque.printDeque();
 //
 //
-//    }
+    }
 
 //    public void selectionSort(){
 //        for (int i = 0; i < size; i++){
