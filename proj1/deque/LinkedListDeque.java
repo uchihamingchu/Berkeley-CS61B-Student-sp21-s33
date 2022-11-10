@@ -4,7 +4,7 @@ package deque;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private class TNode {
         private T item;
         private TNode prev;
@@ -82,11 +82,11 @@ public class LinkedListDeque<T> {
         }
         size = other.size();
     }
-
+    @Override
     public void addFirst(T item) {
         addBetween(item, header, header.getNext());
     }
-
+    @Override
     public void addLast(T item) {
         addBetween(item, trailer.getPrev(), trailer);
     }
@@ -122,14 +122,12 @@ public class LinkedListDeque<T> {
         return null;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         TNode p = header;
         String s = "Deque:";
@@ -140,6 +138,7 @@ public class LinkedListDeque<T> {
         System.out.println(s);
     }
 
+    @Override
     public T removeFirst() {
         if (size != 0) {
             TNode node = header.getNext();
@@ -154,6 +153,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     public T removeLast() {
         if (size != 0) {
             TNode node = trailer.getPrev();
@@ -166,6 +166,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     public T get(int index) {
         if (index >= 0 && index <= size) {
             TNode p = header.getNext();

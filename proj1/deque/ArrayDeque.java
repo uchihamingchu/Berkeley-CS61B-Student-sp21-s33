@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -11,7 +11,7 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[START_SIZE];
         size = 0;
         nextFirst = 0;
-        nextLast = 1;
+        nextLast = 0;
     }
 
     private ArrayDeque(int nextFirst){
@@ -45,6 +45,7 @@ public class ArrayDeque<T> {
 //        items[index] = item;
 //        size ++;
 //    }
+    @Override
     public void addFirst(T item){
         if (size == items.length) {
             resizeUp();
@@ -53,6 +54,7 @@ public class ArrayDeque<T> {
         nextFirst = (nextFirst -1 + items.length) % items.length;
         size++;
     }
+    @Override
     public void addLast(T item){
         if (size == items.length) {
             resizeUp();
@@ -61,10 +63,8 @@ public class ArrayDeque<T> {
         nextLast = (nextLast +1) % items.length;
         size++;
     }
-    public boolean isEmpty(){
-        return size == 0;
-    }
-    public int size(){return size;}
+    @Override
+    public int size(){ return size;}
 //    private void printDeque(){
 //        String result = "[" + items[(nextFirst+1) % items.length];
 //        for (int i = 2; i < size+1; i++){
@@ -73,7 +73,7 @@ public class ArrayDeque<T> {
 //        result += "]";
 //        System.out.println(result);
 //    }
-
+    @Override
     public void printDeque(){
 //        String result1 = "[0";
         String result2 = "[" + items[0];
@@ -86,6 +86,7 @@ public class ArrayDeque<T> {
  //       System.out.println(result1);
         System.out.println(result2);
     }
+    @Override
     public T removeFirst(){
 //        if (size < items.length*0.25){
 //            resizeDown();
@@ -100,6 +101,7 @@ public class ArrayDeque<T> {
             return item;
         }
     }
+    @Override
     public T removeLast(){
 //        if (size < items.length*0.25){
 //            resizeDown();
@@ -114,8 +116,9 @@ public class ArrayDeque<T> {
             return item;
         }
     }
+    @Override
     public T get(int index){
-        if (index < 0 || index > items.length){
+        if (index < 0 || index >= items.length){
             throw new ArrayIndexOutOfBoundsException("Index Out of Bound!");
         }
         T item = items[index];
@@ -123,8 +126,10 @@ public class ArrayDeque<T> {
     }
     private void resizeUp(){
         T[] newList = (T[]) new Object[items.length *2];
-        System.arraycopy(items, 0, newList, items.length, nextFirst +1);
-        System.arraycopy(items,(nextFirst+1)% items.length,newList, (nextFirst+1)%items.length, items.length-nextFirst-1);
+//        System.arraycopy(items, 0, newList, items.length, nextFirst +1);
+//        System.arraycopy(items,(nextFirst+1)% items.length,newList, (nextFirst+1)%items.length, items.length-nextFirst-1);
+        System.arraycopy(items, 0, newList, items.length, nextFirst);
+        System.arraycopy(items,nextFirst,newList, nextFirst, items.length-nextFirst);
         nextLast = items.length + nextLast;
         items = newList;
     }
