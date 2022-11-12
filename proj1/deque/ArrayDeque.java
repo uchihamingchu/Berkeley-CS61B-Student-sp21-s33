@@ -1,10 +1,10 @@
 package deque;
 
 public class ArrayDeque<T> implements Deque<T> {
-    private T[] items;
+    public T[] items;
     private int size;
-    private int nextFirst;
-    private int nextLast;
+    public int nextFirst;
+    public int nextLast;
 
     private static final int START_SIZE = 8;
     public ArrayDeque() {
@@ -18,7 +18,7 @@ public class ArrayDeque<T> implements Deque<T> {
         items = (T[]) new Object[START_SIZE];
         size = 0;
         this.nextFirst = nextFirst;
-        this.nextLast = nextFirst + 1;
+        this.nextLast = nextFirst;
     }
 
     // create a deep copy of other
@@ -47,6 +47,13 @@ public class ArrayDeque<T> implements Deque<T> {
 //    }
     @Override
     public void addFirst(T item){
+        if (size == 0) {
+            items[nextFirst] = item;
+            nextFirst = (nextFirst -1 + items.length) % items.length;
+            nextLast = (nextLast +1) % items.length;
+            size++;
+            return;
+        }
         if (size == items.length) {
             resizeUp();
         }
@@ -56,6 +63,13 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     @Override
     public void addLast(T item){
+        if (size == 0) {
+            items[nextLast] = item;
+            nextFirst = (nextFirst -1 + items.length) % items.length;
+            nextLast = (nextLast +1) % items.length;
+            size++;
+            return;
+        }
         if (size == items.length) {
             resizeUp();
         }
@@ -93,6 +107,13 @@ public class ArrayDeque<T> implements Deque<T> {
 //        }
         if (size == 0) {
             return null;
+        } else if (size == 1) {
+            T item = items[(nextFirst + 1) % items.length];
+            items[(nextFirst + 1) % items.length] = null;
+            size--;
+            nextFirst = (nextFirst + 1) % items.length;
+            nextLast = nextFirst;
+            return item;
         } else {
             T item = items[(nextFirst + 1) % items.length];
             items[(nextFirst + 1) % items.length] = null;
@@ -108,11 +129,18 @@ public class ArrayDeque<T> implements Deque<T> {
 //        }
         if (size == 0) {
             return null;
+        } else if (size == 1) {
+            T item = items[(nextLast - 1 + items.length) % items.length];
+            items[(nextLast - 1 + items.length) % items.length] = null;
+            size--;
+            nextLast = (nextLast - 1 + items.length) % items.length;
+            nextFirst = nextLast;
+            return item;
         } else {
             T item = items[(nextLast - 1 + items.length) % items.length];
             items[(nextLast - 1 + items.length) % items.length] = null;
             size--;
-            nextLast = (nextFirst - 1 + items.length) % items.length;
+            nextLast = (nextLast - 1 + items.length) % items.length;
             return item;
         }
     }
